@@ -8,8 +8,10 @@
 </head>
 <body>
     <header>
-        <h1>EliteCeilingsYKT</h1>
-        <nav>
+
+
+
+        <nav class="desktop-nav">
             <ul>
                 <li><a href="#" onclick="showPage('home')">Главная</a></li>
                 <li><a href="#" onclick="showPage('news')">Новости</a></li>
@@ -19,9 +21,35 @@
             </ul>
             <div id="nav-indicator"></div>
         </nav>
+
         <button id="cart-button" onclick="showPage('cart')">
             Корзина (<span id="cart-count">0</span>)
         </button>
+
+        <div class="mobile-header">
+            <button class="menu-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+                    <h1>EliteCeilingsYKT</h1>
+            
+            <button class="cart-icon" onclick="showPage('cart')">
+                <span id="cart-count">0</span> 🛒
+            </button>
+        </div>
+        
+        <div class="mobile-menu">
+            <button class="close-menu" onclick="toggleMenu()">×</button>
+            <ul>
+                <li><a href="#" onclick="showPage('home'); toggleMenu()">Главная</a></li>
+                <li><a href="#" onclick="showPage('news'); toggleMenu()">Новости</a></li>
+                <li><a href="#" onclick="showPage('catalog'); toggleMenu()">Каталог</a></li>
+                <li><a href="#" onclick="showPage('contacts'); toggleMenu()">Контакты</a></li>
+                <li><a href="#" onclick="showPage('account'); toggleMenu()">Личный кабинет</a></li>
+            </ul>
+        </div>
     </header>
 
     <main>

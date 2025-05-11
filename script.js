@@ -64,7 +64,7 @@ function showPage(pageId) {
 	if (pageId === 'news') {
         loadNews();
         toggleNewsAdminPanel();
-    }
+  }
 
 	if (pageId === 'catalog') {
 		loadCatalog();
@@ -83,8 +83,9 @@ function showPage(pageId) {
 		updateCartUI();
 	}
 
-    currentNavItem = pageId;
-    updateNavIndicator();
+  currentNavItem = pageId;
+  updateNavIndicator();
+  document.querySelector('.mobile-menu').classList.remove('open');
 }
 
 
@@ -137,6 +138,10 @@ function toggleNewsAdminPanel() {
     } else {
         panel.classList.add('hidden');
     }
+}
+
+function toggleMenu() {
+    document.querySelector('.mobile-menu').classList.toggle('open');
 }
 
 function renderCategories() {
