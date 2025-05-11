@@ -1,0 +1,252 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    font-weight: 400;
+}
+
+header, footer {
+    background-color: #F5F0E6;
+    padding: 10px 20px;
+	color: #6C757D;
+	display: flex;
+	flex-direction: column;
+}
+h1, h2, h3 {
+  font-family: 'Playfair display', serif;
+  font-weight: 700;
+}
+header {
+	padding: 0px 0px;
+    background: 
+    linear-gradient(to top, 
+    rgba(0, 0, 0, 0.7) 0%, 
+    rgba(0, 0, 0, 0.1) 50%,
+    transparent 100%), 
+    url(img/headerbackground.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+header h1 {
+    color: #FFFFFF;
+    text-align: center;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+nav li {
+    flex: 1;
+    text-align: center;
+    position: relative;
+    height: 100%;
+}
+
+nav a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #ffffff;
+    height: 100%;
+    padding: 15px 0;
+    transition: background-color 0.3s ease;
+}
+
+nav a:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+#nav-indicator {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background: #D4AF37;
+    transition: all 0.3s ease;
+    z-index: 1;
+}
+
+nav {
+    position: relative;
+}
+
+nav li {
+    position: relative;
+    z-index: 2;
+}
+
+nav a.active {
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+
+main {
+    padding: 20px;
+    min-height: 80vh;
+}
+
+.product {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.hidden {
+    display: none;
+}
+button {
+    background: #FFD700;
+    color: #1A1A1A;
+    border: none;
+    padding: 12px 24px;
+    cursor: pointer;
+}
+button:hover {
+    background: #D4AF37;
+}
+
+/* Категории */
+
+
+.category {
+    margin-bottom: 15px;
+}
+
+.category h3 {
+    cursor: pointer;
+    padding: 8px;
+    background: #e0e0e0;
+    border-radius: 4px;
+}
+
+.subcategory {
+    margin-left: 15px;
+    padding: 5px 0;
+}
+
+.subcategory p {
+    cursor: pointer;
+    padding: 5px;
+}
+
+.subcategory p:hover {
+    background: #e0e0e0;
+}
+
+/* Админ-панель */
+.admin-section {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.admin-section select,
+.admin-section input,
+.admin-section textarea {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px;
+}
+
+.reset-btn {
+    background: #f44336;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+/* Каталог */
+.catalog-container {
+    display: flex;
+    gap: 20px;
+}
+
+.categories-sidebar {
+    width: 250px;
+    min-width: 250px;
+    padding: 15px;
+}
+#categories-sidebar {
+    width: 250px;
+    float: left;
+    padding: 15px;
+    color: white;
+    background: url(img/catalogbackground2.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.products-container {
+    flex-grow: 1;
+}
+
+.category h3 {
+    cursor: pointer;
+    padding: 8px;
+    margin: 5px 0;
+    background: #D4AF3780;
+}
+
+.subcategory {
+    margin-left: 15px;
+    padding: 5px 0;
+}
+
+.subcategory p {
+    cursor: pointer;
+    padding: 5px;
+    margin: 3px 0;
+}
+
+.subcategory p:hover {
+    background: #D4AF3780;
+}
+
+/* Стили корзины */
+#cart-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 12px 24px;
+    background: #FFD700;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+
+}
+#cart-button: hover {
+    background: #D4AF37;
+}
+
+#cart-items {
+    margin: 20px 0;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+#cart-total {
+    font-size: 1.2em;
+    font-weight: bold;
+    text-align: right;
+    margin-top: 20px;
+}

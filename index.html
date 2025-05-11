@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EliteCeilingsYKT</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>EliteCeilingsYKT</h1>
+        <nav>
+            <ul>
+                <li><a href="#" onclick="showPage('home')">Главная</a></li>
+                <li><a href="#" onclick="showPage('news')">Новости</a></li>
+                <li><a href="#" onclick="showPage('catalog')">Каталог</a></li>
+                <li><a href="#" onclick="showPage('contacts')">Контакты</a></li>
+                <li><a href="#" onclick="showPage('account')">Личный кабинет</a></li>
+            </ul>
+            <div id="nav-indicator"></div>
+        </nav>
+        <button id="cart-button" onclick="showPage('cart')">
+            Корзина (<span id="cart-count">0</span>)
+        </button>
+    </header>
+
+    <main>
+        <!-- Главная страница -->
+        <div id="home-page" class="page">
+            <h2>Добро пожаловать на сайт компании EliteCeilingsYKT</h2>
+            <p>Здесь вы найдете лучшие товары по отличным ценам.</p>
+            <p>Перейдите в каталог, чтобы увидеть наш ассортимент.</p>
+        </div>
+
+        <!-- Страница новостей -->
+        <div id="news-page" class="page hidden">
+            
+        </div>
+
+        <!-- Страница каталога -->
+        <div id="catalog-page" class="page hidden">
+			<div id="admin-panel" class="hidden">
+                <h3>Управление каталогом</h3>
+                
+                <!-- Добавление категории -->
+                <div class="admin-section">
+                    <h4>Добавить категорию</h4>
+                    <input type="text" id="new-category-name" placeholder="Название категории">
+                    <button onclick="addCategory()">Добавить</button>
+                </div>
+                
+                <!-- Добавление подкатегории -->
+                <div class="admin-section" id="add-subcategory-section">
+                    <h4>Добавить подкатегорию</h4>
+                    <select id="parent-category-select" onchange="updateSubcategoryDropdown()"></select>
+                    <input type="text" id="new-subcategory-name" placeholder="Название подкатегории">
+                    <button onclick="addSubcategory()">Добавить</button>
+                </div>
+                
+                <!-- Добавление товара -->
+                <div class="admin-section">
+                    <h4>Добавить товар</h4>
+                    <select id="category-select" onchange="updateSubcategoryDropdown()"></select>
+                    <select id="subcategory-select"></select>
+                    <input type="text" id="new-product-name" placeholder="Название">
+                    <input type="number" id="new-product-price" placeholder="Цена">
+                    <textarea id="new-product-desc" placeholder="Описание"></textarea>
+                    <button onclick="addProduct()">Добавить товар</button>
+                </div>
+                
+            </div>
+			
+            <h2>Каталог товаров</h2>
+
+            <div class="catalog-container">
+                <div id="categories-sidebar" class="categories-sidebar"></div>
+
+                <div id="products-container" class="products-container">
+                    <div id="products-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Страница контактов -->
+        <div id="contacts-page" class="page hidden">
+            
+        </div>
+
+        <!-- Личный кабинет -->
+        <div id="account-page" class="page hidden">
+            <h2>Личный кабинет</h2>
+            <div id="login-form">
+                <h3>Вход</h3>
+                <form onsubmit="login(event)">
+                    <div>
+                        <label>Email: <input type="email" id="login-email" required></label>
+                    </div>
+                    <div>
+                        <label>Пароль: <input type="password" id="login-password" required></label>
+                    </div>
+                    <button type="submit">Войти</button>
+                </form>
+                <p>Нет аккаунта? <a href="#" onclick="showRegisterForm()">Зарегистрируйтесь</a></p>
+            </div>
+
+            <div id="register-form" class="hidden">
+                <h3>Регистрация</h3>
+                <form onsubmit="register(event)">
+                    <div>
+                        <label>Имя: <input type="text" id="register-name" required></label>
+                    </div>
+                    <div>
+                        <label>Email: <input type="email" id="register-email" required></label>
+                    </div>
+                    <div>
+                        <label>Пароль: <input type="password" id="register-password" required></label>
+                    </div>
+                    <button type="submit">Зарегистрироваться</button>
+                </form>
+                <p>Уже есть аккаунт? <a href="#" onclick="showLoginForm()">Войдите</a></p>
+            </div>
+
+            <div id="user-info" class="hidden">
+                <h3>Добро пожаловать, <span id="user-name"></span>!</h3>
+                <p>Email: <span id="user-email"></span></p>
+                <h4>Ваши заказы:</h4>
+                <ul id="user-orders">
+                    <!-- Заказы будут добавлены через JS -->
+                </ul>
+                <button onclick="logout()">Выйти</button>
+            </div>
+        </div>
+
+        <!-- Страница корзины -->
+        <div id="cart-page" class="page hidden">
+            <h2>Ваша корзина</h2>
+            <div id="cart-items"></div>
+            <div id="cart-total">
+                <p>Итого: <span id="total-price">0</span> руб.</p>
+                <button onclick="checkout()">Оформить заказ</button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 EliteCeilingsYKT. Все права защищены.</p>
+    </footer>
+
+    <script src="script.js"></script>
+	<script src="scripts/auth.js"></script>
+</body>
+</html>
