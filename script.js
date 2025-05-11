@@ -40,13 +40,15 @@ let currentCategoryId = null;
 let currentSubcategoryId = null;
 let currentUser = null;
 let currentNavItem = 'home';
+let news = [];
 
-// Инициализация при загрузке
 document.addEventListener('DOMContentLoaded', function() {
+	loadNews();
 	loadCatalog();
 	loadUserData();
 	loadCart();
 	showPage('home');
+	renderPopularProducts();
 });
 
 function loadUserData() {
@@ -58,6 +60,11 @@ function showPage(pageId) {
 		page.classList.add('hidden');
 	});
 	document.getElementById(`${pageId}-page`).classList.remove('hidden');
+
+	if (pageId === 'news') {
+        loadNews();
+        toggleNewsAdminPanel();
+    }
 
 	if (pageId === 'catalog') {
 		loadCatalog();
@@ -79,6 +86,7 @@ function showPage(pageId) {
     currentNavItem = pageId;
     updateNavIndicator();
 }
+
 
 function updateNavIndicator() {
     const indicator = document.getElementById('nav-indicator');
@@ -119,6 +127,16 @@ function toggleAdminPanel() {
 	} else {
 		adminPanel.classList.add('hidden');
 	}
+	toggleNewsAdminPanel();
+}
+
+function toggleNewsAdminPanel() {
+    const panel = document.getElementById('news-admin-panel');
+    if (currentUser?.isAdmin) {
+        panel.classList.remove('hidden');
+    } else {
+        panel.classList.add('hidden');
+    }
 }
 
 function renderCategories() {
@@ -198,6 +216,50 @@ function renderProductList(products) {
 		`;
 		productsList.appendChild(productElement);
 	});
+}
+
+function renderPopularProducts() {
+    const container = document.getElementById('popular-products-grid');
+    if (!container) return;
+    
+    let allProducts = [];
+    categories.forEach(category => {
+        category.subcategories.forEach(subcategory => {
+            allProducts = allProducts.concat(subcategory.products);
+        });
+    });
+    
+    if (allProducts.length === 0) {
+        defaultCategories.forEach(category => {
+            category.subcategories.forEach(subcategory => {
+                allProducts = allProducts.concat(subcategory.products);
+            });
+        });
+    }
+    
+    const popularProducts = allProducts.slice(0, 4);
+    
+    container.innerHTML = '';
+    
+    if (popularProducts.length === 0) {
+        container.innerHTML = '<p>Популярные товары не найдены</p>';
+        return;
+    }
+    
+    popularProducts.forEach(product => {
+        const productCard = document.createElement('div');
+        productCard.className = 'product-card';
+        productCard.innerHTML = `
+            <div class="product-image" style="background-image: url('img/products/${product.id}.jpg')"></div>
+            <div class="product-info">
+                <h3>${product.name}</h3>
+                <p>${product.description}</p>
+                <span class="product-price">${product.price} руб.</span>
+                <button class="add-to-cart" onclick="addToCart(${product.id})">В корзину</button>
+            </div>
+        `;
+        container.appendChild(productCard);
+    });
 }
 
 function renderSubcategories(categoryId) {
@@ -419,7 +481,6 @@ function logout() {
 	showPage('home');
 }
 
-// Инициализация корзины при загрузке
 function loadCart() {
 	const savedCart = localStorage.getItem('shop-cart');
 	if (savedCart) {
@@ -428,13 +489,11 @@ function loadCart() {
 	updateCartUI();
 }
 
-// Сохранение корзины
 function saveCart() {
 	localStorage.setItem('shop-cart', JSON.stringify(cart));
 	updateCartUI();
 }
 
-//Обновление корзины
 function updateCartUI() {
 	const cartItems = document.getElementById('cart-items');
 	const cartCount = document.getElementById('cart-count');
@@ -470,7 +529,6 @@ function updateCartUI() {
 	totalPrice.textContent = total;
 }
 
-// Поиск товара по ID
 function findProductById(id) {
 	for (const category of categories) {
 		for (const subcategory of category.subcategories) {
@@ -481,7 +539,6 @@ function findProductById(id) {
 	return null;
 }
 
-// Добавление в корзину
 function addToCart(productId) {
 	const existingItem = cart.find(item => item.productId === productId);
 	
@@ -494,7 +551,6 @@ function addToCart(productId) {
 	saveCart();
 }
 
-// Изменение количества
 function changeQuantity(index, delta) {
 	cart[index].quantity += delta;
 	
@@ -505,13 +561,11 @@ function changeQuantity(index, delta) {
 	saveCart();
 }
 
-// Удаление из корзины
 function removeFromCart(index) {
 	cart.splice(index, 1);
 	saveCart();
 }
 
-// Оформление заказа
 function checkout() {
 	if (cart.length === 0) {
 		alert('Корзина пуста!');
@@ -529,6 +583,88 @@ function checkout() {
 	saveCart();
 }
 
-// Обработчики изменений в выпадающих списках
+function loadNews() {
+    const savedNews = localStorage.getItem('shop-news');
+    news = savedNews ? JSON.parse(savedNews) : [];
+    renderNews();
+}
+
+function saveNews() {
+    localStorage.setItem('shop-news', JSON.stringify(news));
+}
+
+function renderNews() {
+    const newsList = document.getElementById('news-list');
+    newsList.innerHTML = '';
+
+    if (news.length === 0) {
+        newsList.innerHTML = '<p>Новостей пока нет</p>';
+        return;
+    }
+
+    news.forEach((item, index) => {
+        const newsItem = document.createElement('div');
+        newsItem.className = 'news-item';
+        newsItem.innerHTML = `
+            ${item.image ? `<img src="${item.image}" class="news-image" alt="${item.title}">` : ''}
+            <div class="news-content">
+                <h3 class="news-title">${item.title}</h3>
+                <p>${item.content}</p>
+                ${currentUser?.isAdmin ? `
+                    <button onclick="deleteNews(${index})">Удалить</button>
+                ` : ''}
+            </div>
+        `;
+        newsList.appendChild(newsItem);
+    });
+}
+
+function addNews() {
+    const title = document.getElementById('news-title').value.trim();
+    const content = document.getElementById('news-content').value.trim();
+    const imageInput = document.getElementById('news-image');
+    
+    if (!title || !content) {
+        alert('Заполните заголовок и текст новости');
+        return;
+    }
+
+    const newNews = {
+        id: Date.now(),
+        title,
+        content,
+        date: new Date().toLocaleDateString()
+    };
+
+    if (imageInput.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            newNews.image = e.target.result;
+            finishAddingNews(newNews);
+        };
+        reader.readAsDataURL(imageInput.files[0]);
+    } else {
+        finishAddingNews(newNews);
+    }
+}
+
+function finishAddingNews(newsItem) {
+    news.unshift(newsItem);
+    saveNews();
+    renderNews();
+    
+    document.getElementById('news-title').value = '';
+    document.getElementById('news-content').value = '';
+    document.getElementById('news-image').value = '';
+}
+
+function deleteNews(index) {
+    if (confirm('Удалить эту новость?')) {
+        news.splice(index, 1);
+        saveNews();
+        renderNews();
+    }
+}
+
 document.getElementById('category-select')?.addEventListener('change', updateSubcategoryDropdown);
 document.getElementById('parent-category-select')?.addEventListener('change', updateSubcategoryDropdown);
