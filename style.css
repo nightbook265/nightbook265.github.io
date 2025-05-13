@@ -106,11 +106,9 @@ button:hover {
     width: 250px;
     min-width: 250px;
     padding: 15px;
-    background: url(img/catalogbackground2.jpg);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    color: white;
+    background: #1A1A1A;
+    color: #FFFFFF;
+	border-radius: 10px;
 }
 
 .category {
@@ -121,7 +119,7 @@ button:hover {
     cursor: pointer;
     padding: 8px;
     margin: 5px 0;
-    background: #D4AF3780;
+    background: #D4AF37;
 }
 
 .subcategory {
@@ -136,7 +134,7 @@ button:hover {
 }
 
 .subcategory p:hover {
-    background: #D4AF3780;
+    background: #D4AF37;
 }
 
 .products-container {
@@ -145,8 +143,11 @@ button:hover {
 
 .product {
     border: 1px solid #ddd;
+	border-radius: 10px;
     padding: 10px;
     margin-bottom: 10px;
+	background-color: #E0E0E0;
+	
 }
 
 /* Админ-панель */
@@ -434,9 +435,10 @@ button:hover {
 
 .contact-info {
     flex: 1;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
+    display: flex;
+	flex-direction: row;
+	gap: 20px;
+	align-items: stretch;
 }
 
 .contact-map {
@@ -605,6 +607,9 @@ footer {
     .desktop-nav {
         display: none;
     }
+	#desktop-title {
+		display:none;
+	}
     
     .mobile-header {
         display: flex;

@@ -8,9 +8,9 @@
 </head>
 <body>
     <header>
-
-
-
+		
+		<h1 id="desktop-title">EliteCeilingsYKT</h1>
+		
         <nav class="desktop-nav">
             <ul>
                 <li><a href="#" onclick="showPage('home')">Главная</a></li>
@@ -103,7 +103,7 @@
             </section><br>
 
             <button id="catalog-button" onclick="showPage('catalog')">
-                Перейтив в каталог
+                Перейти в каталог
             </button>
 
         </div>
@@ -182,6 +182,13 @@
                         <p><a href="tel:+79991234567">+7 (924) 591-56-66</a></p>
                         <p><a href="tel:+79998765432">+7 (924) 876-77-82</a></p>
                     </div>
+					
+					<div class="contact-card">
+                        <div class="contact-icon">📍</div>
+                        <h3>Адрес</h3>
+                        <p>г. Якутск, ул.Хатын-Юряхское шоссе, д. 65</p>
+                        <button onclick="openMap()">Посмотреть на карте</button>
+                    </div>
                     
                     <div class="contact-card">
                         <div class="contact-icon">✉️</div>
@@ -196,22 +203,10 @@
                         <p>Вс: 9:00 - 16:00</p>
                     </div>
                     
-                    <div class="contact-card">
-                        <div class="contact-icon">📍</div>
-                        <h3>Адрес</h3>
-                        <p>г. Якутск, ул.Хатын-Юряхское шоссе, д. 65</p>
-                        <button onclick="openMap()">Посмотреть на карте</button>
-                    </div>
+                    
                 </div>
                 
-                <div class="contact-map">
-                    <iframe 
-                        src="https://yandex.ru/map-widget/v1/?um=constructor%3A1a2b3c4d5e6f7g8h9i0j&amp;source=constructor" 
-                        width="100%" 
-                        height="100%" 
-                        frameborder="0">
-                    </iframe>
-                </div>
+                
             </div>
             
         </div>
@@ -225,9 +220,11 @@
                     <div>
                         <label>Email: <input type="email" id="login-email" required></label>
                     </div>
+					<br>
                     <div>
                         <label>Пароль: <input type="password" id="login-password" required></label>
                     </div>
+					<br>
                     <button type="submit">Войти</button>
                 </form>
                 <p>Нет аккаунта? <a href="#" onclick="showRegisterForm()">Зарегистрируйтесь</a></p>

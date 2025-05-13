@@ -671,5 +671,9 @@ function deleteNews(index) {
     }
 }
 
+function openMap() {
+	window.open("https://2gis.ru/yakutsk/firm/7037403699290503?ysclid=makc2kkxgo842337016&utm_referrer=https%3A%2Fyandex.ru");
+}
+
 document.getElementById('category-select')?.addEventListener('change', updateSubcategoryDropdown);
 document.getElementById('parent-category-select')?.addEventListener('change', updateSubcategoryDropdown);
